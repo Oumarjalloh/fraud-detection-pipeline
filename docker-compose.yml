@@ -1,0 +1,48 @@
+# docker-compose.yml
+# Lance toute la stack de stockage du projet en une commande.
+
+services:
+
+  # ── PostgreSQL : base relationnelle pour les agrégats analytiques ──
+  postgres:
+    image: postgres:16
+    container_name: fraud-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: fraud_user
+      POSTGRES_PASSWORD: fraud_password
+      POSTGRES_DB: fraud_db
+    ports:
+      - "5432:5432"          # hôte:conteneur
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fraud_user -d fraud_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── Cassandra : NoSQL distribué pour les alertes temps réel ──
+  cassandra:
+    image: cassandra:4.1
+    container_name: fraud-cassandra
+    restart: unless-stopped
+    environment:
+      CASSANDRA_CLUSTER_NAME: FraudCluster
+      HEAP_NEWSIZE: 128M
+      MAX_HEAP_SIZE: 1G
+    ports:
+      - "9042:9042"
+    volumes:
+      - cassandra_data:/var/lib/cassandra
+    healthcheck:
+      test: ["CMD-SHELL", "cqlsh -e 'DESCRIBE KEYSPACES' || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 60s      # Cassandra met ~1 minute à démarrer
+
+# Volumes persistants : les données survivent aux redémarrages
+volumes:
+  postgres_data:
+  cassandra_data:
