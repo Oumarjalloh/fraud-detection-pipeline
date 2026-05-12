@@ -1,0 +1,25 @@
+﻿# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Environnement
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data (souvent volumineux)
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# Jupyter
+.ipynb_checkpoints/
