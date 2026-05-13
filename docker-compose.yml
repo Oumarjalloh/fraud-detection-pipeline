@@ -8,12 +8,17 @@ services:
     image: postgres:16
     container_name: fraud-postgres
     restart: unless-stopped
+    # Force le hachage des mots de passe en MD5 (au lieu de SCRAM-SHA-256
+    # qui pose des problèmes de négociation avec le driver JDBC).
+    command: postgres -c password_encryption=md5
     environment:
       POSTGRES_USER: fraud_user
       POSTGRES_PASSWORD: fraud_password
       POSTGRES_DB: fraud_db
+      POSTGRES_HOST_AUTH_METHOD: md5
+      POSTGRES_INITDB_ARGS: "--auth-host=md5"
     ports:
-      - "5432:5432"          # hôte:conteneur
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
