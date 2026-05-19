@@ -2,16 +2,13 @@
 Premier contact avec Spark : lecture de la table 'transactions' depuis
 PostgreSQL, exploration du DataFrame, comptages et filtrages basiques.
 
-Usage :
-    python src/processing/spark_explore.py
 """
 
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col
 
 # --- Configuration ---
-# channelBinding=disable contourne un bug de négociation SCRAM-SHA-256
-# entre JDBC 42.7 et Postgres 16 sur connexion non-SSL locale.
+
 PG_URL  = "jdbc:postgresql://localhost:5432/fraud_db?channelBinding=disable"
 PG_USER = "fraud_user"
 PG_PASS = "fraud_password"

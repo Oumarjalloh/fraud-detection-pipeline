@@ -1,12 +1,6 @@
 """
 Charge les alertes de fraude dans Cassandra.
 
-Source : les transactions frauduleuses déjà identifiées en PostgreSQL.
-On simule ici un "bootstrap historique" — en Phase 5, ce sera Spark
-Streaming qui alimentera Cassandra à la volée.
-
-Usage :
-    python src/ingestion/load_to_cassandra.py
 """
 
 from pathlib import Path

@@ -2,13 +2,6 @@
 Charge les Parquets d'agrégats (issus de Spark) dans PostgreSQL comme
 data mart analytique. Quatre tables avec un préfixe `mart_`.
 
-Pipeline complet :
-    CSV → Spark (agrégations) → Parquet → psycopg2 → PostgreSQL
-                                          ^^^^^^^^^^^^^^^^^^^^^^
-                                          Cette étape.
-
-Usage :
-    python src/processing/load_data_mart.py
 """
 
 from pathlib import Path

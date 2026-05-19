@@ -3,8 +3,6 @@ Job Spark batch : lit le CSV de transactions, calcule des agrégats
 analytiques (par catégorie, pays, heure, marchand) et les écrit en
 Parquet (format colonnaire compressé, standard data engineering).
 
-Usage :
-    python src/processing/spark_aggregate.py
 """
 
 from pathlib import Path
@@ -112,15 +110,7 @@ def top_fraud_merchants(df: DataFrame, n: int = 20) -> DataFrame:
 
 
 def write_parquet(df: DataFrame, name: str) -> None:
-    """
-    Convertit le DataFrame Spark en pandas et écrit le Parquet via pyarrow.
-    
-    Pourquoi pas spark.write.parquet() ? Sur Windows, l'écriture Spark
-    passe par les libs Hadoop natives (winutils.exe + hadoop.dll) qui
-    posent des problèmes de DLL. pyarrow n'a aucune dépendance externe.
-    
-    Pour des sorties petites (agrégats), .toPandas() est totalement OK.
-    """
+   
     path = OUTPUT_DIR / name
     path.mkdir(parents=True, exist_ok=True)
     

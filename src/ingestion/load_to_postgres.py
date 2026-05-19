@@ -1,13 +1,6 @@
 """
 Charge les transactions depuis le CSV vers PostgreSQL.
 
-1. Exécute le fichier SQL de création du schéma (idempotent)
-2. Vide la table (pour rechargement propre)
-3. Charge le CSV avec COPY (méthode la plus rapide en Postgres)
-4. Affiche un résumé
-
-Usage :
-    python src/ingestion/load_to_postgres.py
 """
 
 from pathlib import Path

@@ -1,9 +1,6 @@
 """
 Génère un fichier CSV de transactions bancaires fictives avec un taux
 de fraude réaliste et des patterns détectables.
-
-Usage :
-    python src/ingestion/generate_transactions.py
 """
 
 import csv
@@ -14,8 +11,7 @@ from pathlib import Path
 from faker import Faker
 
 # --- Reproductibilité ---
-# Avec une seed fixe, on génère TOUJOURS les mêmes données. Pratique
-# pour le debugging et pour qu'un recruteur ait les mêmes résultats que toi.
+
 fake = Faker("fr_FR")
 Faker.seed(42)
 random.seed(42)
@@ -113,7 +109,7 @@ def main() -> None:
     """Point d'entrée : génère le CSV complet."""
     print(f"🏦 Génération de {NUM_TRANSACTIONS:,} transactions...")
 
-    # Crée le dossier data/raw/ s'il n'existe pas
+    
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
 
     card_ids = generate_card_ids(NUM_CARDS)
